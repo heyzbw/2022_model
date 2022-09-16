@@ -21,25 +21,6 @@ for row in arr:
         tmp[1]=1
     else:
         tmp[1]=2
-    # #颜色编码
-    # if row[3]=='绿':
-    #     tmp[2]=1
-    # elif row[3]=='黑':
-    #     tmp[2] = 2
-    # elif row[3]=='深蓝':
-    #     tmp[2] = 3
-    # elif row[3]=='浅绿':
-    #     tmp[2] = 4
-    # elif row[3]=='紫':
-    #     tmp[2] = 5
-    # elif row[3]=='深绿':
-    #     tmp[2] = 6
-    # elif row[3]=='蓝绿':
-    #     tmp[2] = 7
-    # elif row[3]=='浅蓝':
-    #     tmp[2] = 8
-    # else:
-    #     tmp[2]=9
     if row[3]=='深蓝':
         tmp[2]=1
     elif row[3]=='绿':
