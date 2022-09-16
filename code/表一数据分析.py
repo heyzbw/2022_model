@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # 打开excel表格
-excel=pd.read_excel("附件.xlsx",sheet_name=0)
+excel=pd.read_excel(r"E:\G\exercise\github\2022_model\题目\C\附件.xlsx",sheet_name=0)
 #转化为numpy数组
 arr=np.array(excel)
 print(arr)
@@ -21,22 +21,40 @@ for row in arr:
         tmp[1]=1
     else:
         tmp[1]=2
-    #颜色编码
-    if row[3]=='绿':
+    # #颜色编码
+    # if row[3]=='绿':
+    #     tmp[2]=1
+    # elif row[3]=='黑':
+    #     tmp[2] = 2
+    # elif row[3]=='深蓝':
+    #     tmp[2] = 3
+    # elif row[3]=='浅绿':
+    #     tmp[2] = 4
+    # elif row[3]=='紫':
+    #     tmp[2] = 5
+    # elif row[3]=='深绿':
+    #     tmp[2] = 6
+    # elif row[3]=='蓝绿':
+    #     tmp[2] = 7
+    # elif row[3]=='浅蓝':
+    #     tmp[2] = 8
+    # else:
+    #     tmp[2]=9
+    if row[3]=='深蓝':
         tmp[2]=1
-    elif row[3]=='黑':
+    elif row[3]=='绿':
         tmp[2] = 2
-    elif row[3]=='深蓝':
-        tmp[2] = 3
     elif row[3]=='浅绿':
-        tmp[2] = 4
+        tmp[2] = 3
     elif row[3]=='紫':
-        tmp[2] = 5
+        tmp[2] = 4
     elif row[3]=='深绿':
+        tmp[2] = 5
+    elif row[3]=='浅蓝':
         tmp[2] = 6
     elif row[3]=='蓝绿':
         tmp[2] = 7
-    elif row[3]=='浅蓝':
+    elif row[3]=='黑':
         tmp[2] = 8
     else:
         tmp[2]=9
@@ -47,4 +65,4 @@ for row in arr:
         tmp[3]=2
     encoder.append(tmp)
 pd_encoder=pd.DataFrame(encoder)
-pd_encoder.to_excel('表一编码结果.xlsx')
+pd_encoder.to_excel(r'C:\Users\16033\Desktop\表一编码结果.xlsx')
