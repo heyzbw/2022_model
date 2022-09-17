@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.11.17)  17 SEP 2022 22:30
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.11.17)  18 SEP 2022 03:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1835,11 +1835,7 @@ File: figures//leixing1.png Graphic file (type bmp)
 <figures//leixing1.png>
 File: figures//leixing2.png Graphic file (type bmp)
 <figures//leixing2.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[3]
+ [3]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\leavevmode@ifvmode' on input line 148.
@@ -1860,26 +1856,182 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 File: figures//高钾风化与否.png Graphic file (type bmp)
 <figures//高钾风化与否.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (5.85605pt too wide) in paragraph at lines 176--209
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+File: figures//Spearman相关系数.png Graphic file (type bmp)
+<figures//Spearman相关系数.png>
 [4]
-Overfull \hbox (13.61195pt too wide) in paragraph at lines 221--236
+Overfull \hbox (61.76198pt too wide) in paragraph at lines 190--200
+ [][] 
+ []
+
+File: figures//铅钡风化与否.png Graphic file (type bmp)
+<figures//铅钡风化与否.png>
+File: figures//Spearman相关系数2.png Graphic file (type bmp)
+<figures//Spearman相关系数2.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5]
+Overfull \hbox (13.34418pt too wide) in paragraph at lines 237--247
+ [][] 
+ []
+
+[6]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 256.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 256.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 256.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 256.
+
+File: figures//sanlei.png Graphic file (type bmp)
+<figures//sanlei.png>
+File: figures//liucheng.png Graphic file (type bmp)
+<figures//liucheng.png>
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 277.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 277.
+
+[7]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 282.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 282.
+
+Missing character: There is no 。 (U+3002) in font Times New Roman/OT:script=lat
+n;language=dflt;mapping=tex-text;!
+File: figures//chazhi.png Graphic file (type bmp)
+<figures//chazhi.png>
+[8]
+Overfull \hbox (36.28702pt too wide) in paragraph at lines 324--330
  [][] 
  []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 334.
 
-[5] [6] (e:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 334.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 334.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 334.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 334.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 334.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 334.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 334.
+
+
+Overfull \hbox (145.45009pt too wide) detected at line 336
+\OMS/cmsy/m/n/12.05 4\OML/cmm/m/it/12.05 ^^V[] \OT1/cmr/m/n/12.05 : \OMS/cmsy/m
+/n/12.05 4\OML/cmm/m/it/12.05 ^^V[] \OT1/cmr/m/n/12.05 : \OMS/cmsy/m/n/12.05 4\
+OML/cmm/m/it/12.05 ^^V[] \OT1/cmr/m/n/12.05 : \OMS/cmsy/m/n/12.05 4\OML/cmm/m/i
+t/12.05 ^^V[] \OT1/cmr/m/n/12.05 : \OMS/cmsy/m/n/12.05 4\OML/cmm/m/it/12.05 ^^V
+[] \OT1/cmr/m/n/12.05 : \OMS/cmsy/m/n/12.05 4\OML/cmm/m/it/12.05 ^^V[] \OT1/cmr
+/m/n/12.05 : \OMS/cmsy/m/n/12.05 4\OML/cmm/m/it/12.05 ^^V[] \OT1/cmr/m/n/12.05 
+= 1 : 2\OML/cmm/m/it/12.05 :\OT1/cmr/m/n/12.05 166 : 5\OML/cmm/m/it/12.05 :\OT1
+/cmr/m/n/12.05 587 : 1\OML/cmm/m/it/12.05 :\OT1/cmr/m/n/12.05 213 : 5\OML/cmm/m
+/it/12.05 :\OT1/cmr/m/n/12.05 209 : 11\OML/cmm/m/it/12.05 :\OT1/cmr/m/n/12.05 8
+14 : \OMS/cmsy/m/n/12.05 ^^@\OT1/cmr/m/n/12.05 37\OML/cmm/m/it/12.05 :\OT1/cmr/
+m/n/12.05 913
+ []
+
+(e:/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 
@@ -1898,23 +2050,90 @@ Package fontspec Info: Font family 'FandolFang-Regular(0)' created for font
 (fontspec)             <->"[FandolFang-Regular.otf]/OT:language=dflt;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
+
+LaTeX Font Warning: Font shape `TU/FandolFang-Regular(0)/m/sl' undefined
+(Font)              using `TU/FandolFang-Regular(0)/m/n' instead on input line 
+339.
+
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <7.52812> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 264.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 340.
+[9]
+Overfull \hbox (40.04836pt too wide) in paragraph at lines 354--364
+ [][] 
+ []
+
+[10] [11]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 384.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 384.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 384.
+
+
+Overfull \hbox (61.76198pt too wide) in paragraph at lines 388--412
+ [][] 
+ []
+
+[12]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 416.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 416.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 416.
+
+
+Overfull \hbox (13.34418pt too wide) in paragraph at lines 421--455
+ [][] 
+ []
+
+
+Overfull \hbox (11.12679pt too wide) in paragraph at lines 458--482
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[13] [14]
+Overfull \hbox (40.04836pt too wide) in paragraph at lines 495--505
+ [][] 
+ []
+
+
+Overfull \hbox (61.25253pt too wide) in paragraph at lines 513--543
+ [][] 
+ []
+
 
 Package caption Warning: Unused \captionsetup[sub] on input line 8.
 See the caption package documentation for explanation.
 
-[7] (./example.aux)
+[15] (./example.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 Package rerunfilecheck Info: File `example.out' has not changed.
-(rerunfilecheck)             Checksum: EE6721BBAAC3348A02C1E73C717C04AF;2803.
+(rerunfilecheck)             Checksum: 38F34948A4D0EE37F557656A3D417C17;4261.
  ) 
 Here is how much of TeX's memory you used:
- 32835 strings out of 476919
- 667812 string characters out of 5825423
- 1216571 words of memory out of 5000000
- 52159 multiletter control sequences out of 15000+600000
- 419234 words of font info for 148 fonts, out of 8000000 for 9000
+ 33069 strings out of 476919
+ 677601 string characters out of 5825423
+ 1242828 words of memory out of 5000000
+ 52375 multiletter control sequences out of 15000+600000
+ 428261 words of font info for 188 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 116i,14n,118p,547b,1603s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 116i,14n,118p,1020b,1566s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on example.pdf (8 pages).
+Output written on example.pdf (16 pages).
