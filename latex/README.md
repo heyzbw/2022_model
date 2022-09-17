@@ -1,5 +1,5 @@
 # LaTex常见语法记录
-- 无编号分点
+- 有编号分点
 ~~~
 \begin{enumerate}
 	\item 
@@ -7,7 +7,7 @@
 	\item 
 \end{enumerate}
 ~~~
-- 有编号分点
+- 无编号分点
 ~~~
 \begin{itemize}
 	\item
@@ -30,7 +30,7 @@
 ~~~
 \begin{table}[!h]
 	\centering
-	\caption[fh]{符号说明表}
+	\caption{符号说明表}
 	\label{fuhao}
 ~~~
 - 表格斜杠
