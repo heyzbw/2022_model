@@ -26,7 +26,14 @@
 
 \ref{P1}
 ~~~
-- 引用python语法
+- 表格表头添加
+~~~
+\begin{table}[!h]
+	\centering
+	\caption[fh]{符号说明表}
+	\label{fuhao}
+~~~
+- 引用python语法（提前加入配置文件）
 ~~~
 \begin{python}
 
