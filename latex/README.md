@@ -33,6 +33,13 @@
 	\caption[fh]{符号说明表}
 	\label{fuhao}
 ~~~
+- 表格斜杠
+~~~
+\usepackage{diagbox}
+
+
+
+~~~
 - 引用python语法（提前加入配置文件）
 ~~~
 \begin{python}
