@@ -1,7 +1,7 @@
 clc; close all; clear;
-[num]=xlsread('bu.xlsx')
+[num]=xlsread('element.xlsx')
 data=num; 
-N=6;%设置聚类数目
+N=4;%设置聚类数目
 [m,n]=size(data);
 pattern=zeros(m,n+1);
 center=zeros(N,n);%初始化聚类中心
@@ -62,12 +62,12 @@ for i=1:m
     elseif pattern(i,n)==4
          plot(pattern(i,1),pattern(i,2),'y*');
          plot(center(4,1),center(4,2),'ko');
-    elseif pattern(i,n)==5
-         plot(pattern(i,1),pattern(i,2),'g*');
-         plot(center(5,1),center(5,2),'ko');
-    elseif pattern(i,n)==6
-         plot(pattern(i,1),pattern(i,2),'b*');
-         plot(center(6,1),center(6,2),'ko');
+%     elseif pattern(i,n)==5
+%          plot(pattern(i,1),pattern(i,2),'g*');
+%          plot(center(5,1),center(5,2),'ko');
+%     elseif pattern(i,n)==6
+%          plot(pattern(i,1),pattern(i,2),'b*');
+%          plot(center(6,1),center(6,2),'ko');
 %     elseif pattern(i,n)==7
 %          plot(pattern(i,1),pattern(i,2),'y*');
 %          plot(center(7,1),center(7,2),'ko');
@@ -97,7 +97,7 @@ for i=1:m
 %          plot(center(15,1),center(15,2),'ko');
     else
          plot(pattern(i,1),pattern(i,2),'m*');
-         plot(center(6,1),center(6,2),'ko');
+         plot(center(4,1),center(4,2),'ko');
     end
 end     
 grid on;
@@ -120,12 +120,12 @@ for i=1:m
     elseif pattern(i,n)==4
          plot(pattern(i,1),pattern(i,2),'y*');
          plot(center(4,1),center(4,2),'ko');
-    elseif pattern(i,n)==5
-         plot(pattern(i,1),pattern(i,2),'g*');
-         plot(center(5,1),center(5,2),'ko');
-    elseif pattern(i,n)==6
-         plot(pattern(i,1),pattern(i,2),'b*');
-         plot(center(6,1),center(6,2),'ko');
+%     elseif pattern(i,n)==5
+%          plot(pattern(i,1),pattern(i,2),'g*');
+%          plot(center(5,1),center(5,2),'ko');
+%     elseif pattern(i,n)==6
+%          plot(pattern(i,1),pattern(i,2),'b*');
+%          plot(center(6,1),center(6,2),'ko');
 %     elseif pattern(i,n)==7
 %          plot(pattern(i,1),pattern(i,2),'y*');
 %          plot(center(7,1),center(7,2),'ko');
@@ -155,7 +155,7 @@ for i=1:m
 %          plot(center(15,1),center(15,2),'ko');
     else
          plot(pattern(i,1),pattern(i,2),'m*');
-         plot(center(6,1),center(6,2),'ko');
+         plot(center(4,1),center(4,2),'ko');
     end
     
 end
