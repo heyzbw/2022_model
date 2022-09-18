@@ -61,7 +61,7 @@
 
 \subsubsection{问题一的分析}
 
-问题一要求分析附件表单1中文物表面风化与玻璃类型、颜色和纹饰之间的关系，随后分析表单2数据， 得出风化与化学成分含量的统计规律，最后依据表单2风化点的检测数据，预测风化前的化学成分含量。 本文首先对附件表单1的数据进行可视化， 作出以玻璃类型、纹饰和颜色为自变量，是否风化为因变量的三维气泡图，再对高钾玻璃和铅钡玻璃分别作风化 与纹饰和颜色的二维散点图得到四者之间的定性关系。未完待续
+问题一要求分析附件表1中文物表面风化与玻璃类型、颜色和纹饰之间的关系，随后分析表2数据，得出风化与化学成分含量的统计规律，最后依据表2风化点的检测数据，预测风化前的化学成分含量。 本文首先对附件表单1的数据进行可视化，作出以玻璃类型、纹饰和颜色为自变量，是否风化为因变量的三维气泡图，再对高钾玻璃和铅钡玻璃分别作风化与纹饰和颜色的二维散点图，得到四者之间的定性关系。 接着，利用各个化学成分含量风化前后变换的散点图与spearman系数表，相互印证，得到对于某种玻璃类型最重要的几个化学成分指标，进一步分析得出化学成分与风化的统计规律。 最后，利用前文挑选的重要的化学成分指标构建逻辑回归模型，并通过同时地不等幅度地调节成分含量，使风化结果翻转，达到预测风化前化学成分含量的效果。
 
 \subsubsection{问题二的分析}
 
@@ -87,6 +87,7 @@
 
 \begin{table}[!h]
 	\centering
+	\small
 	\caption{表单1缺失值数据}
 	\label{queshi}
 	\begin{tabular}{@{}ccccc@{}}
@@ -99,13 +100,35 @@
 	\end{tabular}
 \end{table}
 
-可以观察到，表单1的数据仅存在颜色属性的缺失，缺失数据量为4，缺失量较少，可以忽略。
+
+可以观察到，表单1的数据仅存在颜色属性的缺失，缺失数据量为4，本文中将其作为一种新的颜色特征进行分析，故对此数据保留。
+
+
+\subsubsection{处理含量空白值}
+
+对于表单2的数据，由于空白处表示未检测到相关化学成分，故对空白处使用“补0”操作。
 
 \subsubsection{处理异常值}
 
+对于表单2的数据，针对每个文物样品进行成分比例数据的加和，求解出15，17号文物的成分比例累加和低于85\%，属于异常数据，进行剔除操作。
+
+\subsubsection{处理奇异值}
+
+对于表单2的数据，部分数据存在文物编号为“未风化点”，而表面“风化”，对于此类数据进行分类与标记，在数据处理过程中需考虑其“未风化”的特性。
+
+
 \subsection{数据规约}
+\subsubsection{归一化处理}
 由于表单2中不同的化学成分含量相差较大，故考虑首先对各列化学成分数据进行标准化处理，使处理后的数据更加能体现该化学成分含量的相对大小，使数据更加直观且具有可比性。此处使用了最小——最大规范化方法(minmax-scale)，方法公式如下： $$ x_{i} = \frac{x-x_{min}}{x_{max}-x_{min}}$$
 
+\subsubsection{字符数据数值化}
+
+由于表单中数据多为离散数据，且问题多为分类问题，故考虑将“字符变量”转换为“0-1变量”。本文做出了如下定义:
+
+\begin{itemize}
+	\item 风化为1，无风化为0；
+	\item 铅钡玻璃类型是1，高钾玻璃类型是0
+\end{itemize}
 
 \section{问题1模型的建立与分析}
 \subsection{风化结果与玻璃类型、纹饰与颜色的关系的描述性分析}
@@ -125,7 +148,7 @@
 	\centering
 	\includegraphics[width=.49\textwidth]{leixing1}
 	\includegraphics[width=.49\textwidth]{leixing2}
-	\caption{描述高钾玻璃（左）和铅钡玻璃（右）数据特征的二维散点图}
+	\caption{描述高钾玻璃(左)和铅钡玻璃(右)数据特征的二维散点图}
 	\label{leixing}
 \end{figure}
 
@@ -185,6 +208,7 @@
 	
 	\begin{table}[!h]
 		\centering
+		\small 
 		\caption{高钾玻璃样品的$p_{1}$示意值}
 		\label{gjp}
 		\begin{tabular}{@{}cccccccccc@{}}
@@ -210,19 +234,19 @@
 \end{itemize}
 
 
-接着对铅钡玻璃进行分析，铅钡玻璃的分析流程与高钾玻璃类似，首先得出铅钡玻璃的风化前后化学成分含量归一化后的散点图，如图\ref{qbfh}（左）所示
+接着对铅钡玻璃进行分析，铅钡玻璃的分析流程与高钾玻璃类似，首先得出铅钡玻璃的风化前后化学成分含量归一化后的散点图，如图\ref{qbfh}(左)所示
 
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=.49\textwidth]{铅钡风化与否}
 	\includegraphics[width=.49\textwidth]{Spearman相关系数2}
-	\caption{铅钡玻璃成分含量散点图（左）与各成分间的Spearman相关系数热力图（右）}
+	\caption{铅钡玻璃成分含量散点图(左)与各成分间的Spearman相关系数热力图(右)}
 	\label{qbfh}
 \end{figure}
 
 
-从图中除了能分析出风化后$SiO_{2}$含量减少之外，较难分析铅钡玻璃中风化前后化学成分的变化，故需要求解Spearman相关系数进行进一步观察，可视化Spearman相关系数热力图如图\ref{qbfh}（右）所示。
+从图中除了能分析出风化后$SiO_{2}$含量减少之外，较难分析铅钡玻璃中风化前后化学成分的变化，故需要求解Spearman相关系数进行进一步观察，可视化Spearman相关系数热力图如图\ref{qbfh}(右)所示。
 
 
 从中提取出与$SiO_{2}$相关性较强的$PbO$、$CuO$、$BaO$三个化学成分，同样地，构造$SiO_{2}$与这三个化学成分含量的比例关系值$p_{2}$,即 $$p_{2}=\frac{n(SiO_{2})}{n(PbO)+n(CuO)+n(BaO)}$$
@@ -232,6 +256,7 @@
 
 \begin{table}[!h]
 	\centering
+	\small
 	\caption{铅钡玻璃样品的$p_{2}$示意值}
 	\label{qbfhp}
 	\begin{tabular}{@{}cccccccc@{}}
@@ -276,7 +301,7 @@
 
 \subsubsection{选取特征（化学成分含量）}
 
-特征量的选取主要基于图\ref{gjfh}（左），由上述分析可知，风化前后只对$SiO_{2}$、$K_{2}O$、$CaO$、$MgO$、$Al_{2}O_{3}$、$Fe_{2}O_{3}$、$CuO$的含量有显著影响，故将这七个化学成分含量视为系统输入的特征值。为了方便表达，选取的七个特征值依次用$x_{1}$、$x_{2}$......$x_{7}$表示。 对于其他含量，风化前后波动较平稳的$P_{2}O_{5}$使用原值近似预测值，风化后消失的元素使用风化前元素的平均值近似预测值。
+特征量的选取主要基于图\ref{gjfh}(左)，由上述分析可知，风化前后只对$SiO_{2}$、$K_{2}O$、$CaO$、$MgO$、$Al_{2}O_{3}$、$Fe_{2}O_{3}$、$CuO$的含量有显著影响，故将这七个化学成分含量视为系统输入的特征值。为了方便表达，选取的七个特征值依次用$x_{1}$、$x_{2}$......$x_{7}$表示。 对于其他含量，风化前后波动较平稳的$P_{2}O_{5}$使用原值近似预测值，风化后消失的元素使用风化前元素的平均值近似预测值。
 
 
 \subsubsection{建立线性逻辑回归方程}
@@ -285,7 +310,7 @@
 	\item step1: 构建一般方程。
 	
 	
-	引入sigmoid函数，sigmoid有两个特性，第一个是其函数值在趋于正无穷或负无穷时，函数趋近平滑状态，第二个是sigmoid函数输出范围为（0，1），因此，sigmoid函数经常用于二分类问题，其函数表达式如下所示： $$\sigma(z)=\frac{1}{1+\mathrm{e}^{-z}}$$ 为了建立输出与特征的关系，考虑使用$x_{i}$的线性表达来替代$z$,则z可以被表达为 $$z=w_{0}+w_{1}\cdot x_{1} + w_{2}\cdot x_{2}+....+w_{7} \cdot x_{7} = \vec{w} ^{T} \cdot \vec{x}$$ 具体到本问题中，$\vec{w}$、$\vec{x}$的维度是8，且$\vec{x}$的第一个元素是1，将与$w_{0}$相乘，形成偏置。此时，线性逻辑回归的表达式就可以表达为： $$\sigma_{w}(x)=\frac{1}{1+\mathrm{e}^{-\vec{w} ^{T} \cdot。 \vec{x}}}$$
+	引入sigmoid函数，sigmoid有两个特性，第一个是其函数值在趋于正无穷或负无穷时，函数趋近平滑状态，第二个是sigmoid函数输出范围为（0，1），因此，sigmoid函数经常用于二分类问题，其函数表达式如下所示： $$\sigma(z)=\frac{1}{1+\mathrm{e}^{-z}}$$ 为了建立输出与特征的关系，考虑使用$x_{i}$的线性表达来替代$z$,则z可以被表达为 $$z=w_{0}+w_{1}\cdot x_{1} + w_{2}\cdot x_{2}+....+w_{7} \cdot x_{7} = \vec{w} ^{T} \cdot \vec{x}$$ 具体到本问题中，$\vec{w}$、$\vec{x}$的维度是8，且$\vec{x}$的第一个元素是1，将与$w_{0}$相乘，形成偏置。此时，线性逻辑回归的表达式就可以表达为： $$\sigma_{w}(x)=\frac{1}{1+\mathrm{e}^{-\vec{w} ^{T} \cdot \vec{x}}}$$
 	\item step2: 构建逻辑回归的损失函数。
 	
 	
@@ -310,7 +335,7 @@
 	
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[width=.65\textwidth]{chazhi}
+		\includegraphics[width=.69\textwidth]{chazhi}
 		\caption{方程预测值与实际值的风化bool值}
 		\label{chazhi}
 	\end{figure}
@@ -319,6 +344,7 @@
 	
 	\begin{table}[!h]
 		\centering
+		\small
 		\caption{模型方程的具体参数}
 		\label{canshu}
 		\begin{tabular}{|c|ccccccc|}
@@ -333,7 +359,11 @@
 
 \subsubsection{化学成分含量的反向传播}
 
-本文通过按照一定比例依次调整风化后样本的化学成分含量，直到逻辑回归的方程判定由“1”变为“0”为止，达到预测风化前化学成分含量的效果。由于是对多组化学变量同时调整，故需要设定不同的调整幅度，此幅度由不同化学成分含量风化前后的均值的变化量之比决定。幅度比如下所示： $$\bigtriangleup \mu_{CuO}:\bigtriangleup \mu_{Fe_{2}O_{3}}:\bigtriangleup \mu_{Al_{2}O_{3}}:\bigtriangleup \mu_{MgO}:\bigtriangleup \mu_{CaO}:\bigtriangleup \mu_{K_{2}O}:\bigtriangleup \mu_{SiO_{2}}=1:2.166:5.587:1.213:5.209:11.814:-37.913$$ 本算法的伪代码如下所示：
+本文通过按照一定比例依次调整风化后样本的化学成分含量，直到逻辑回归的方程判定由“1”变为“0”为止，达到预测风化前化学成分含量的效果。由于是对多组化学变量同时调整，故需要设定不同的调整幅度，此幅度由不同化学成分含量风化前后的均值的变化量之比决定。幅度比如下所示： $$\bigtriangleup \mu_{CuO}:\bigtriangleup \mu_{Fe_{2}O_{3}}:\bigtriangleup \mu_{Al_{2}O_{3}}:\bigtriangleup \mu_{MgO}:\bigtriangleup \mu_{CaO}:\bigtriangleup \mu_{K_{2}O}:\bigtriangleup \mu_{SiO_{2}} \\
+=1:2.166:5.587:1.213:5.209:11.814:-37.913$$ 
+
+
+本算法的伪代码如下所示：
 
 \begin{python}
 	Init mu，alpha       #初始化上述比例系数行向量，alpha为幅值系数，本例设为0.005
@@ -348,7 +378,7 @@
 
 \begin{table}[!h]
 	\centering
-	\scriptsize
+	\tiny
 	\caption{风化后高钾玻璃化学成分的预测量}
 	\label{gjyc}
 \begin{tabular}{@{}ccccccccccccccc@{}}
@@ -367,6 +397,85 @@
 对于铅钡玻璃的化学成分的预测量，采用同样的预测方式，由于铅钡玻璃各个成分变化均较大，故选取铅钡的除了二氧化硫的十三个化学成分进行训练，构建铅钡玻璃的逻辑回归模型，最终反向更新化学成分含量，得到铅钡玻璃风化前化学成分的预测量，具体预测值见附录\ref{app:qbycl}。
 
 
+\section{问题二模型的建立与求解}
+\subsection{高钾、铅钡玻璃分类规律的描述性统计分析}
+
+本文首先将预处理好的附件表二中玻璃类别与14种化学组成成分的关系用散点图进行可视化分析， 得到“所有玻璃文物类别与成分关系图”、“风化玻璃文物类别与成分关系图”和“未风化玻璃文物类别与成分关系图” 对类别与成分之间的关系进行直观的定性分析； 随后计算类别与单个化学成分之间的$spearman$相关系数 对类别与成分之间的关系做定量分析。
+
+\subsubsection{统计规律的定性分析}
+所有玻璃文物类别与成分关系散点图如图\ref{ztgx}所示。
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=.69\textwidth]{类别成分分析}
+	\caption{玻璃文物整体的类别与成分关系散点图}
+	\label{ztgx}
+\end{figure}
+
+从图中可以看出：高钾玻璃的氧化钾含量基本上高于比铅钡玻璃，且有较明显的分界线； 而高钾玻璃的氧化铅含量普遍低于铅钡玻璃。 在二氧化硅含量方面，高钾玻璃的含量大多偏高，而铅钡玻璃的含量则相对中等，整体趋势高钾玻璃的二氧化硅含量更高， 但二者含量的交集也不少。
+
+
+将预处理后的表二数据按照风化与否分别画出玻璃类别与化学成分含量的散点图如图\ref{fhgx}所示。
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=.49\textwidth]{风化类别分析}
+	\includegraphics[width=.49\textwidth]{未风化类别分析}
+	\caption{风化玻璃(左)与未风化(右)玻璃的类别与成分关系散点图}
+	\label{fhgx}
+\end{figure}
+
+
+从风化玻璃的类别与成分关系散点图可以看出：风化后的高钾玻璃的二氧化硅含量明显高于风化后的铅钡玻璃， 且可以看出风化后的高钾玻璃化学成分含量集中在二氧化硅上； 风化后的高钾玻璃不含氧化铅与氧化钡，而风化后的铅钡玻璃的氧化铅和氧化钡的含量很高；
+
+
+从未风化玻璃的类别与成分关系散点图可以看出：未风化的高钾玻璃在氧化纳、氧化钾和氧化钙含量上明显高于铅钡玻璃且有较明显的分界； 而未风化的高钾玻璃在氧化铅和氧化钡上含量明显低于铅钡玻璃。
+
+
+\subsubsection{统计规律的定量分析}
+
+在5.1.1节通过散点图进行了定性分析后，本文通过计算类别与各化学成分之间的$spearman$相关系数， 进一步分析玻璃分类的统计规律。
+
+
+首先，所有玻璃文物的类别与化学成分之间的$spearman$相关系数如表\ref{leihua}所示：
+
+\begin{table}[!h]
+	\centering
+	\tiny
+	\caption{所有玻璃文物的类别与成分的spearman相关系数表}
+	\label{leihua}
+	\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+		\hline
+		\textbf{化学成分}                                                    & \textbf{二氧化硅} & \textbf{氧化纳} & \textbf{氧化钾} & \textbf{氧化钙} & \textbf{氧化镁} & \textbf{氧化铝} & \textbf{氧化铁} & \textbf{氧化铜} & \textbf{氧化铅} & \textbf{氧化钡} & \textbf{五氧化二磷} & \textbf{氧化锶} & \textbf{氧化锡} & \textbf{二氧化硫} \\ \hline
+		\textbf{\begin{tabular}[c]{@{}l@{}}Spareman\\ 相关系数\end{tabular}} & -.670**       & 0.117289     & -.583**      & -0.19334     & -0.09478     & -.241*       & -.289*       & -0.22728     & .770**       & .714**       & 0.156965       & .588**       & 0.063272     & -0.06492      \\ \hline
+	\end{tabular}
+\end{table}
+
+从表中可以看出：在P值为0.01的条件下，玻璃类别与氧化铅、氧化钡有较强的相关性：氧化铅和氧化钡的含量越高， 越有可能是铅钡玻璃；其他相关性并不明显。
+
+接着分别分析风化与否的玻璃类别与化学成分之间的$spearman$相关系数，结果如表\ref{wfhxs}所示：
+
+\begin{table}[!h]
+	\centering
+	\tiny
+	\caption{未风化玻璃文物的类别与成分的spearman相关系数表}
+	\label{wfhxs}
+	\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+		\hline
+		\textbf{化学成分}                                                    & \textbf{二氧化硅} & \textbf{氧化纳} & \textbf{氧化钾} & \textbf{氧化钙} & \textbf{氧化镁} & \textbf{氧化铝} & \textbf{氧化铁} & \textbf{氧化铜} & \textbf{氧化铅} & \textbf{氧化钡} & \textbf{五氧化二磷} & \textbf{氧化锶} & \textbf{氧化锡} & \textbf{二氧化硫} \\ \hline
+		\textbf{\begin{tabular}[c]{@{}l@{}}Spareman\\ 相关系数\end{tabular}} & -.442*        & 0.026336     & -.750**      & -.567**      & -.397*       & -.586**      & -0.37817     & -0.38615     & .867**       & .866**       & -0.28823       & .417*        & 0.074139     & -0.22109      \\ \hline
+	\end{tabular}
+\end{table}
+
+从未风化玻璃文物的类别与成分的spearman相关系数表中可以看出：在P值为0.01的条件下， 玻璃类别与氧化铅、氧化钡和氧化钾有极强的相关性：氧化铅和氧化钡的含量越高， 越有可能是铅钡玻璃； 而氧化钾的含量越高越有可能是高钾玻璃；
+
+
+从风化玻璃文物的类别与成分的spearman相关系数表中可以看出，在P值为0.01的条件下， 玻璃类别与二氧化硅、氧化钡、氧化铅和氧化锶的含量有着一般的相关性：风化玻璃的二氧化硅含量越高， 越有可能是高钾玻璃类型；氧化钡、氧化铅和氧化锶的含量越高，越有可能是铅钡玻璃类型。
+
+
+\subsubsection{分类规律总述}
+
+综合玻璃类别与化学成分散点图和$spearman$相关系数的分析可得：高钾玻璃的氧化钾含量明显高于铅钡玻璃； 高钾玻璃的氧化铅和氧化钡含量之和明显低于铅钡玻璃的氧化铅和氧化钡含量之和； 高钾玻璃的二氧化硅含量整体高于铅钡玻璃，但是二者的二氧化硅含量有明显的交集。 基于以上观测，我们推测通过$\frac{P b O+B a O}{K_{2} O}$这一比值可初步确定玻璃文物是高钾玻璃 还是铅钡玻璃。
 
 \newpage
 %参考文献
@@ -383,8 +492,10 @@
 
 \section{高钾玻璃文物样品的$p_{1}$值}
 \label{app:gjp1}
+
 \begin{table}[!h]
 	\centering
+	\small
 	\begin{tabular}{@{}cccccccccc@{}}
 		\toprule
 		\textbf{\begin{tabular}[c]{@{}c@{}}文物\\ 采样点\end{tabular}} & \textbf{类型} & \textbf{\begin{tabular}[c]{@{}c@{}}表面\\ 风化\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钾\\ (K2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钙\\ (CaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化镁\\ (MgO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铝\\ (Al2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铁\\ (Fe2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}高钾的比例\\ (区分风化)\end{tabular}} \\ \midrule
@@ -418,6 +529,7 @@
 
 \begin{table}[!h]
 	\centering
+	\small
 	\begin{tabular}{@{}cccccccc@{}}
 		\toprule
 		\textbf{\begin{tabular}[c]{@{}c@{}}文物\\ 采样点\end{tabular}} & \textbf{类型} & \textbf{\begin{tabular}[c]{@{}c@{}}表面\\ 风化\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铜\\ (CuO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铅\\ (PbO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钡\\ (BaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}铅钡的比例\\ (区分风化)\end{tabular}} \\ \midrule
@@ -450,19 +562,20 @@
 		24                                                        & 铅钡          & 无风化                                                      & 31.94                                                          & 8.46                                                         & 29.14                                                        & 26.23                                                        & 0.50                                                            \\
 		11                                                        & 铅钡          & 风化                                                       & 33.59                                                          & 4.93                                                         & 25.39                                                        & 14.61                                                        & 0.75                                                            \\
 		50未风化点                                                    & 铅钡          & \begin{tabular}[c]{@{}c@{}}风化\\ (实际无风化)\end{tabular}     & 45.02                                                          & 0.70                                                         & 30.61                                                        & 6.22                                                         & 1.20                                                            \\
-		\bottomrule
-		\end{tabular}
-	\end{table}
-\begin{table}[!h]
-\centering
-\begin{tabular}{@{}cccccccc@{}}
-	\toprule
-	\textbf{\begin{tabular}[c]{@{}c@{}}文物\\ 采样点\end{tabular}} & \textbf{类型} & \textbf{\begin{tabular}[c]{@{}c@{}}表面\\ 风化\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铜\\ (CuO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铅\\ (PbO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钡\\ (BaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}铅钡的比例\\ (区分风化)\end{tabular}} \\ \midrule
 		55                                                        & 铅钡          & 无风化                                                      & 49.01                                                          & 0.86                                                         & 32.92                                                        & 7.95                                                         & 1.17                                                            \\
 		25未风化点                                                    & 铅钡          & \begin{tabular}[c]{@{}c@{}}风化\\ （实际无风化）\end{tabular}     & 50.61                                                          & 1.12                                                         & 31.90                                                        & 6.65                                                         & 1.28                                                            \\
 		47                                                        & 铅钡          & 无风化                                                      & 51.54                                                          & 0.65                                                         & 25.40                                                        & 9.23                                                         & 1.46                                                            \\
 		46                                                        & 铅钡          & 无风化                                                      & 55.21                                                          & 0.77                                                         & 25.25                                                        & 10.06                                                        & 1.53                                                            \\
 		42未风化点1                                                   & 铅钡          & \begin{tabular}[c]{@{}c@{}}风化\\ (实际无风化)\end{tabular}     & 51.26                                                          & 2.67                                                         & 21.88                                                        & 10.47                                                        & 1.46                                                            \\
+				\bottomrule
+	\end{tabular}
+\end{table}
+\begin{table}[!h]
+\centering
+\small
+\begin{tabular}{@{}cccccccc@{}}
+\toprule
+\textbf{\begin{tabular}[c]{@{}c@{}}文物\\ 采样点\end{tabular}} & \textbf{类型} & \textbf{\begin{tabular}[c]{@{}c@{}}表面\\ 风化\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铜\\ (CuO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铅\\ (PbO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钡\\ (BaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}铅钡的比例\\ (区分风化)\end{tabular}} \\ \midrule
 		49未风化点                                                    & 铅钡          & \begin{tabular}[c]{@{}c@{}}风化\\ (实际无风化)\end{tabular}     & 54.61                                                          & 0.45                                                         & 23.02                                                        & 4.19                                                         & 1.97                                                            \\
 		42未风化点2                                                   & 铅钡          & \begin{tabular}[c]{@{}c@{}}风化\\ (实际无风化)\end{tabular}     & 51.33                                                          & 2.72                                                         & 20.12                                                        & 10.88                                                        & 1.52                                                            \\
 		35                                                        & 铅钡          & 无风化                                                      & 65.91                                                          & 0.16                                                         & 22.05                                                        & 5.68                                                         & 2.36                                                            \\
@@ -491,7 +604,7 @@ $ $
 
 \begin{table}[!h]
 	\centering
-	\scriptsize 
+	\tiny
 		\begin{tabular}{@{}ccccccccccccccc@{}}
 			\toprule
 			\textbf{\begin{tabular}[c]{@{}c@{}}文物\\ 采样点\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钠\\ (Na2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钾\\ (K2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钙\\ (CaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化镁\\ (MgO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铝\\ (Al2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铁\\ (Fe2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铜\\ (CuO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铅\\ (PbO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钡\\ (BaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}五氧化二磷\\ (P2O5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化锶\\ (SrO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化锡\\ (SnO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硫\\ (SO2)\end{tabular}} \\ \midrule
@@ -509,7 +622,7 @@ $ $
 
 \begin{table}[!h]
 	\centering
-	\scriptsize 
+	\tiny 
 		\begin{tabular}{@{}ccccccccccccccc@{}}
 			\toprule
 			\textbf{文物采样点}   & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钠\\ (Na2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钾\\ (K2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钙\\ (CaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化镁\\ (MgO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铝\\ (Al2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铁\\ (Fe2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铜\\ (CuO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铅\\ (PbO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钡\\ (BaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}五氧化二磷\\ (P2O5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化锶\\ (SrO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化锡\\ (SnO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硫\\ (SO2)\end{tabular}} \\ \midrule
