@@ -12,7 +12,8 @@
 \usepackage{longtable,booktabs}
 \usepackage{setspace}
 \usepackage{pythonhighlight}
-
+\usepackage{listings}
+\lstset{language=Matlab}
 
 \title{题目}
 \tihao{C}
@@ -65,11 +66,11 @@
 
 \subsubsection{问题二的分析}
 
-问题二要求分析两类玻璃的分类规律，之后选取合适的化学成分划分亚类并给出方法和具体结果， 并对亚类划分结果做合理性和敏感性分析。本文首先作出不同玻璃文物的不同化学成分含量的散点图，得出 初步的高钾玻璃和铅钡玻璃的分类规律。未完待续
+问题二要求分析两类玻璃的分类规律，之后选取合适的化学成分划分亚类并给出方法和具体结果， 并对亚类划分结果做合理性和敏感性分析。本文首先作出不同玻璃文物的不同化学成分含量的散点图，得出 初步的高钾玻璃和铅钡玻璃的分类规律。随后通过计算所有玻璃文物的类别与化学成分的$spearman$系数、 风化文物的类别与化学成分的$spearman$系数和未风化文物的类别与化学成分的$spearman$系数对分类规律做定量验证， 最终得出最后的玻璃分类规律。通过对高钾玻璃和铅钡玻璃分别做化学成分含量的分布散点图，并结合方差分析选定最终亚类划分 的化学成分，然后根据挑选的化学成分分类对高钾玻璃和铅钡玻璃做K-means聚类得到最后的亚类划分。
 
 \subsubsection{问题三的分析}
 
-问题三要求预测附件表单3中文物的类型，并对结果做敏感度分析。未完待续
+问题三要求预测附件表3中文物的类型，并对结果做敏感度分析。通过观察附件表3的数据可以发现氧化纳、氧化锡、二氧化硫 等化学成分由于空白信息过多而变得离散，可将其视为"标签"特征，因此引入决策树处理这些“离散的信息”。表三还提供了如二氧化硅、氧化铝、 五氧化二磷等没有空白值的化学成分， SVM 更善于处理这样的化学成分特征，因此本文联合决策树和支持向量机两种分类方法，利用二者特点，训练不同特点的化学成分信 息，得到两个分类模型，最后综合给出最后的类别预测。
 
 \subsubsection{问题四的分析}
 
@@ -171,7 +172,7 @@
 \end{itemize}
 
 
-\section{问题1模型的建立与分析}
+\section{问题一模型的建立与分析}
 \subsection{风化结果与玻璃类型、纹饰与颜色的关系的描述性分析}
 首先对数据的整体进行刻画，绘制以玻璃类型、纹饰和颜色为自变量，是否风化为因变量的三维散点气泡图，如图\ref{yuansu3d}所示。
 
@@ -521,14 +522,27 @@
 
 综合玻璃类别与化学成分散点图和$spearman$相关系数的分析可得：高钾玻璃的氧化钾含量明显高于铅钡玻璃； 高钾玻璃的氧化铅和氧化钡含量之和明显低于铅钡玻璃的氧化铅和氧化钡含量之和； 高钾玻璃的二氧化硅含量整体高于铅钡玻璃，但是二者的二氧化硅含量有明显的交集。 基于以上观测，我们推测通过$\frac{PbO+BaO}{K_{2}O}$这一比值可初步确定玻璃文物是高钾玻璃还是铅钡玻璃。
 
-\subsection{基于 Kmeans 。。。。。。的模型建立与求解}
+\subsection{基于方差分析的K-means聚类模型的建立与求解}
 
-为选择化学成分指标对不同的类型进行亚类划分，本文采用了K-means无监督学习的方式实现聚类，进而得到亚分类依据的效果
+\subsubsection{选择合适的化学成分}
 
-\subsubsection{剔除噪声影响}
+由于K-means聚类是对特征比较敏感的算法，噪声数据会对最终分类结果带来不利影响， 因此在进行K-means聚类之前，需要进行特征筛选。
 
-在两组不同的玻璃类型的数据中，都存在冗余数据的噪声，噪声的特点是，数据相对杂乱，无法对分类工作做出指引，且一定程度上存在干扰结果的可能。 基于这种考虑，我们通过。。。。。以剔除噪声。
 
+本文首先对附件表单2的高钾玻璃和铅钡玻璃分别做化学成分含量的分布散点图，观察不同类的化学成分的分布规律， 再分别计算两种玻璃成分含量的方差，选出最终的化学成分。 高钾玻璃和铅钡玻璃的化学成分含量分布图如图\ref{qbhl}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=.49\textwidth]{高钾玻璃成分分布图}
+	\includegraphics[width=.49\textwidth]{铅钡玻璃成分分布图}
+	\caption{高钾玻璃和铅钡玻璃的化学成分含量分布图}
+	\label{qbhl}
+\end{figure}
+
+结合图\ref{qbhl}和4.2节的图\ref{qbfh}可以发现：氧化铅的含量分布可以近似将高钾玻璃分为风化与未风化，氧化锶、氧化镁和氧化铝 可以进一步划分风化的铅钡玻璃；同理可以分析得出选取氧化铅、氧化纳、氧化钾、氧化钙和氧化铜作为高钾玻璃的聚类特征。
+
+
+再对高钾玻璃内部的原始数据做归一化后计算各化学成分的方差，可以发现所选化学成分的方差较大，印证了此前的想法。
 
 \subsubsection{确定最佳聚类数}
 
@@ -562,9 +576,16 @@ K-means聚类分析存在超参数最佳聚类数K，本文使用了肘部法则
 由图可得，应该选取的K值为 。
 
 
-\subsubsection{k-means聚类过程}
+\subsubsection{K-means聚类及结果}
+在确定高钾玻璃和铅钡玻璃的K值后，进行K-means聚类分析得到亚类结果如下：
 
-\subsubsection{聚类模型的敏感度与准确度分析}
+\subsection{聚类模型的合理性与敏感度分析}
+\subsubsection{合理性分析}
+
+我们将不筛选化学成分，将所有成分作为输入进行K-means聚类得到的结果如下：
+
+对比可知，进行化学成分筛选后的K-means聚类效果更好。
+
 
 \section{问题三模型的建立与求解}
 
@@ -698,7 +719,7 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]_{+}$$ 其中$[z]_{+}=\left\{\begin{
 从表\ref{6-3}中可以看出氧化钙、氧化铝、氧化铁、氧化铜和五氧化二磷有较大的浮动空间，模型对这些成分的变化不敏感，而$\frac{n_K}{n_{Pb}+n_{Ba}}$ 和$\frac{n_{K}}{n_{Si}} $浮动空间较小，表明模型对氧化钾、氧化铅、二氧化硅和氧化钡这些化学成分较敏感。
 
 
-\section{问题4的分析}
+\section{问题四的分析}
 \subsection{化学成分关联关系的描述性分析}
 
 对于高钾玻璃，化学成分有如下的关联关系
@@ -754,7 +775,6 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]_{+}$$ 其中$[z]_{+}=\left\{\begin{
 \newpage
 %附录
 \begin{appendices}
-	
 
 \section{高钾玻璃文物样品的$p_{1}$值}
 \label{app:gjp1}
@@ -921,6 +941,347 @@ $ $
 		\end{tabular}
 	\end{table}
 
+\section{绘制逻辑回归真实值与预测值的matlab代码}
+\begin{lstlisting}
+	% 绘制逻辑回归预测值、真实值
+	% y_pre提前通过拖拽excel表单载入数据
+	y_fact = [1 1 1 1 1 1  0 0 0 0 0 0 0 0 0 0 0 0 0 0];
+	x= linspace(1,20,20);
+	plot(x,y_pre)
+	hold on 
+	plot(x,y_fact)
+	
+	legend('模型预测值','实际值')
+\end{lstlisting}
+
+
+\section{处理含量空白值的python代码}
+\begin{python}
+	import pandas as pd
+	import numpy as np
+	
+	#读取excel
+	excel=pd.read_excel(r"E:\G\exercise\github\2022_model\excel\表单2处理.xlsx",sheet_name=1)
+	#处理缺失值
+	excel=pd.DataFrame(excel)
+	excel=excel.fillna(value=0)
+	
+	excel.to_excel(r"E:\G\exercise\github\2022_model\excel\补零的表二数据.xlsx")
+\end{python}
+
+\section{用于编码的python代码}
+\begin{python}
+	import pandas as pd
+	import numpy as np
+	
+	# 打开excel表格
+	excel=pd.read_excel(r"E:\G\exercise\github\2022_model\题目\C\附件.xlsx",sheet_name=0)
+	#转化为numpy数组
+	arr=np.array(excel)
+	print(arr)
+	encoder=[]
+	for row in arr:
+	tmp=[1,2,3,4]
+	#对纹饰进行编码
+	if row[1]=='A':
+	tmp[0]=1
+	elif row[1]=='B':
+	tmp[0]=2
+	else:
+	tmp[0]=3
+	#类型编码
+	if row[2]=="高钾":
+	tmp[1]=1
+	else:
+	tmp[1]=2
+	if row[3]=='深蓝':
+	tmp[2]=1
+	elif row[3]=='绿':
+	tmp[2] = 2
+	elif row[3]=='浅绿':
+	tmp[2] = 3
+	elif row[3]=='紫':
+	tmp[2] = 4
+	elif row[3]=='深绿':
+	tmp[2] = 5
+	elif row[3]=='浅蓝':
+	tmp[2] = 6
+	elif row[3]=='蓝绿':
+	tmp[2] = 7
+	elif row[3]=='黑':
+	tmp[2] = 8
+	else:
+	tmp[2]=9
+	#风化编码
+	if row[4]=="风化":
+	tmp[3]=1
+	else:
+	tmp[3]=2
+	encoder.append(tmp)
+	pd_encoder=pd.DataFrame(encoder)
+	pd_encoder.to_excel(r'C:\Users\16033\Desktop\表一编码结果.xlsx')
+\end{python}
+
+
+\section{用于训练线性逻辑回归方程的python代码}
+
+\begin{python}
+	import numpy as np
+	import pandas as pd
+	import matplotlib.pyplot as plt
+	import math
+	# data=pd.read_csv('Dry_Bean_Dataset.csv')
+	data = pd.read_excel('C:\\Users\\lenovo\\Desktop\\myworkspace\\mydata.xlsx',sheet_name="Sheet1")
+	df=pd.DataFrame(data)
+	Y_train=[]
+	for i in df['Class'][0:20]:
+	if i=='无风化':
+	Y_train.append(0)
+	else:
+	Y_train.append(1)
+	si=df['si'][0:20]
+	k=df['k'][0:20]
+	ca=df['ca'][0:20]
+	mg=df['mg'][0:20]
+	al=df['al'][0:20]
+	fe=df['fe'][0:20]
+	p=df['p'][0:20]
+	X_train=list(zip(si,k,ca,mg,al,fe,p))
+	
+	from sklearn.linear_model import LinearRegression # 导入sklearn库中的线性回归模块
+	lr = LinearRegression()                           # 定义一个线性回归模型
+	lr.fit(X_train, Y_train)                          # 将模型拟合到数据上
+	
+	# y_pred = lr.predict(X_train)
+	# print(y_pred[:19])
+	
+	def sigmoid_function(z):
+	fz = []
+	for num in z:
+	fz.append(1/(1 + math.exp(-num)))
+	return fz
+	
+	# 输出w权值
+	print(lr.coef_)
+	print(lr.intercept_)
+	
+	# 载出预测值
+	y_pred = lr.predict(X_train)
+	out_y = pd.DataFrame(y_pred)
+	out_y.to_excel("y_k_pred.xlsx")
+	# print(y_pred[:])
+	# x1 , x2 , x3 , x4 , x5 , x6 = X_train[0],X_train[1],X_train[2],X_train[3],X_train[4],X_train[5]
+	
+	# 验证准确度
+	score = lr.score(X_train,Y_train)
+	print(score)
+\end{python}
+
+\section{肘部法获取聚类K值的python代码}
+
+\begin{python}
+	import matplotlib.pyplot as plt
+	from scipy.spatial.distance import cdist
+	import numpy as np
+	import pandas as pd
+	from sklearn.cluster import KMeans
+	
+	
+	# 读入数据
+	plt.plot()
+	X = pd.read_excel(r"element.xlsx")
+	colors = ['b', 'g', 'r']
+	markers = ['o', 'v', 's']
+	
+	# 肘部法确定K值
+	distortions = []
+	K = range(2, 10)
+	for k in K:
+	kmeanModel = KMeans(n_clusters=k).fit(X)
+	kmeanModel.fit(X)
+	distortions.append(sum(np.min(cdist(X, kmeanModel.cluster_centers_, 'euclidean'), axis=1)) / X.shape[0])
+	
+	# 绘图
+	#设置中文格式宋体
+	plt.rcParams['font.sans-serif'] = ['SimSun']
+	plt.plot(K, distortions, 'bx-',  color="blue", marker="o", linestyle="--")
+	plt.xticks(fontsize=12)
+	plt.yticks(fontsize=12)
+	plt.grid(True)
+	plt.xlabel('K  值', fontsize=14)
+	plt.ylabel('成 本 函 数', fontsize=14)
+	plt.title('肘 部 法 确 定 K 值', fontsize=14)
+	plt.show()
+\end{python}
+
+\section{轮廓分析获取聚类K值的python代码}
+
+\begin{python}
+	from sklearn.cluster import KMeans
+	from sklearn.metrics import silhouette_score
+	import pandas as pd
+	import matplotlib.pyplot as plt
+	
+	# 读入数据
+	data = pd.read_excel(r"element.xlsx")
+	data = data[['二氧化硅(SiO2)','氧化钠(Na2O)','氧化钾(K2O)',	'氧化钙(CaO)','氧化镁(MgO)','氧化铝(Al2O3)','氧化铁(Fe2O3)','氧化铜(CuO)','氧化铅(PbO)', '氧化钡(BaO)', '五氧化二磷(P2O5)','氧化锶(SrO)','氧化锡(SnO2)','二氧化硫(SO2)'
+	]]                    #选择需要的分类特征值
+	data_Array = data.values           #获取数组，便于聚类
+	
+	# 轮廓系数确定K值
+	def Silhouette_ALL(n):  
+	data_Cluster = KMeans(n_clusters=n)
+	data_Cluster.fit(data_Array)
+	label = data_Cluster.labels_
+	Silhouette_Coefficient = silhouette_score(data_Array, label)
+	return Silhouette_Coefficient
+	
+	y = []
+	k = []
+	# 遍历不同k值下轮廓系数
+	for n in range(2, 10):  
+	k.append(n)
+	data_data_Silhouette_mean = Silhouette_ALL(n)
+	y.append(data_data_Silhouette_mean)
+	print(y)
+	
+	# 绘图
+	#设置中文格式宋体
+	plt.rcParams['font.sans-serif'] = ['SimSun']
+	plt.plot(k, y, 'bx-',  color="blue", marker="o", linestyle="--")
+	plt.xticks(fontsize=12)
+	plt.yticks(fontsize=12)
+	plt.grid(True)
+	plt.xlabel('K  值', fontsize=14)
+	plt.ylabel('轮 廓 系 数', fontsize=14)
+	plt.title('轮 廓 系 数 确 定 K 值', fontsize=14)
+	plt.show()
+	
+\end{python}
+
+\section{K-means的matlab代码}
+\begin{lstlisting}
+	clc; close all; clear;
+	[num]=xlsread('element.xlsx')
+	data=num; 
+	%聚类中心个数，即K
+	N=4; 
+	[m,n]=size(data);
+	pattern=zeros(m,n+1);
+	%聚类中心的初始化
+	center=zeros(N,n); 
+	pattern(:,1:n)=data(:,:);
+	for x=1:N
+	%产生中心
+	center(x,:)=data( randi(49,1),:);
+	end
+	figure('name','聚类过程');
+	while 1
+	distence=zeros(1,N);
+	num=zeros(1,N);
+	new_center=zeros(N,n);
+	
+	%loop draw figure
+	
+	drawfigure(pattern,center)
+	 %循环对各点计算距离，并按照最近的中心进行归类。
+	for x=1:m                            
+	for y=1:N
+	%计算到每个类的距离，寻找最近的中心
+	distence(y)=norm(data(x,:)-center(y,:));
+	end
+	%取第二个参数即最小值所在的索引
+	[~, temp]=min(distence);
+	pattern(x,n+1)=temp;         
+	end
+	k=0;
+	for y=1:N
+	for x=1:m
+	if pattern(x,n+1)==y  
+	%对第y个中心（x,y）求和相加             
+	new_center(y,:)=new_center(y,:)+pattern(x,1:n);  
+	%对第y个中心自增
+	num(y)=num(y)+1;                 
+	end
+	end
+	%求取中心的均值
+	new_center(y,:)=new_center(y,:)/num(y); 
+	%一个中心变化不大时，说明该点就是中心点
+	%当聚集了N个中心没有点时，就可以结束运算
+	if norm(new_center(y,:)-center(y,:))<0.1    
+	k=k+1;
+	end
+	end
+	if k==N
+	break;
+	else
+	center=new_center;
+	end
+	end
+	[m, n]=size(pattern);
+	%绘图，显示聚类后数据
+	figure;
+	hold on
+	for i=1:m
+	if pattern(i,n)==1 
+	plot(pattern(i,1),pattern(i,2),'r*');
+	plot(center(1,1),center(1,2),'ko');
+	elseif pattern(i,n)==2
+	plot(pattern(i,1),pattern(i,2),'g*');
+	plot(center(2,1),center(2,2),'ko');
+	elseif pattern(i,n)==3
+	plot(pattern(i,1),pattern(i,2),'b*');
+	plot(center(3,1),center(3,2),'ko');
+	elseif pattern(i,n)==4
+	plot(pattern(i,1),pattern(i,2),'y*');
+	plot(center(4,1),center(4,2),'ko');
+	%     elseif pattern(i,n)==5
+	%          plot(pattern(i,1),pattern(i,2),'g*');
+	%          plot(center(5,1),center(5,2),'ko');
+	%     elseif pattern(i,n)==6
+	%          plot(pattern(i,1),pattern(i,2),'b*');
+	%          plot(center(6,1),center(6,2),'ko');
+	else
+	plot(pattern(i,1),pattern(i,2),'m*');
+	plot(center(4,1),center(4,2),'ko');
+	end
+	end     
+	grid on;
+	
+	
+	function drawfigure(pattern,center)
+	[m, n]=size(pattern);
+	
+	hold on;
+	for i=1:m
+	if pattern(i,n)==1 
+	plot(pattern(i,1),pattern(i,2),'r*');
+	plot(center(1,1),center(1,2),'ko');
+	elseif pattern(i,n)==2
+	plot(pattern(i,1),pattern(i,2),'g*');
+	plot(center(2,1),center(2,2),'ko');
+	elseif pattern(i,n)==3
+	plot(pattern(i,1),pattern(i,2),'b*');
+	plot(center(3,1),center(3,2),'ko');
+	elseif pattern(i,n)==4
+	plot(pattern(i,1),pattern(i,2),'y*');
+	plot(center(4,1),center(4,2),'ko');
+	%     elseif pattern(i,n)==5
+	%          plot(pattern(i,1),pattern(i,2),'g*');
+	%          plot(center(5,1),center(5,2),'ko');
+	%     elseif pattern(i,n)==6
+	%          plot(pattern(i,1),pattern(i,2),'b*');
+	%          plot(center(6,1),center(6,2),'ko');
+	else
+	plot(pattern(i,1),pattern(i,2),'m*');
+	plot(center(4,1),center(4,2),'ko');
+	end
+	end
+	hold off;
+	pause(0.7);
+	clf
+	end
+\end{lstlisting}
 
 \end{appendices}
 
