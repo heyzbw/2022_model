@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.11.17)  18 SEP 2022 11:02
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.11.17)  18 SEP 2022 11:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2146,9 +2146,6 @@ File: figures//chazhi.png Graphic file (type bmp)
 <figures//chazhi.png>
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\leavevmode@ifvmode' on input line 395.
 
@@ -2243,7 +2240,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \kern 2.00876pt
 (hyperref)                removed on input line 436.
 
-[11]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\leavevmode@ifvmode' on input line 440.
@@ -2282,11 +2278,12 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 File: figures//类别成分分析.png Graphic file (type bmp)
 <figures//类别成分分析.png>
+[11]
 File: figures//风化类别分析.png Graphic file (type bmp)
 <figures//风化类别分析.png>
 File: figures//未风化类别分析.png Graphic file (type bmp)
 <figures//未风化类别分析.png>
-[12]
+ [12]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\leavevmode@ifvmode' on input line 470.
@@ -2646,37 +2643,74 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \kern 2.00876pt
 (hyperref)                removed on input line 576.
 
-[16] [17]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 598.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 598.
+(hyperref)                removing `\leavevmode@ifvmode' on input line 587.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 598.
-
-[18]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 632.
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 587.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 632.
+(hyperref)                removing `\leavevmode@ifvmode' on input line 587.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 632.
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 587.
+
+[16]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 602.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 602.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 602.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.00876pt
+(hyperref)                removed on input line 602.
+
+[17] [18]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 622.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 622.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 622.
+
+[19]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 656.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 656.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 656.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[19] [20]
-Overfull \hbox (7.6375pt too wide) in paragraph at lines 731--761
+[20] [21]
+Overfull \hbox (7.6375pt too wide) in paragraph at lines 755--785
  [][] 
  []
 
@@ -2684,20 +2718,20 @@ Overfull \hbox (7.6375pt too wide) in paragraph at lines 731--761
 Package caption Warning: Unused \captionsetup[sub] on input line 8.
 See the caption package documentation for explanation.
 
-[21] (./example.aux)
+[22] (./example.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `example.out' has not changed.
-(rerunfilecheck)             Checksum: F25A677589E8E3F6120DD72EEA67C774;7483.
+(rerunfilecheck)             Checksum: FE47E22F251C5D6CDF9381CB32A867E1;8019.
  ) 
 Here is how much of TeX's memory you used:
- 33273 strings out of 476919
- 686560 string characters out of 5825423
- 1243535 words of memory out of 5000000
- 52576 multiletter control sequences out of 15000+600000
+ 33274 strings out of 476919
+ 686571 string characters out of 5825423
+ 1243568 words of memory out of 5000000
+ 52577 multiletter control sequences out of 15000+600000
  428256 words of font info for 191 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  116i,14n,118p,1020b,1564s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on example.pdf (22 pages).
+Output written on example.pdf (23 pages).
