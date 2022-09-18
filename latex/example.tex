@@ -7,6 +7,7 @@
 \usepackage{subcaption} % 子标题
 \usepackage{fancyhdr} 
 \usepackage{color}
+\usepackage{endnotes}
 \usepackage{diagbox}
 \usepackage{longtable,booktabs}
 \usepackage{setspace}
@@ -76,7 +77,13 @@
 
  
 \section{模型假设与符号说明}
-\subsection{符号说明}
+\subsection{模型假设}
+
+\begin{itemize}
+	\item 假设各个化学成分含量仅受风化影响，不受人为或其他与奉化无关的自然因素的影响
+	\item 假设在表单的检测中，若未检测到某一化学成分，则此化学成分的含量为0；
+	\item 假设表面风化的无风化检测点具有的无风化特性较多，而表面无风化的风化检测点具有的风化特性较多；
+\end{itemize}
 
 
 \section{数据预处理}
@@ -190,14 +197,13 @@
 由图\ref{leixing}，可以得出如下的规律：
 \begin{itemize}
 	\item 由高钾玻璃的二维图，可以观察到高钾玻璃中B纹饰——紫颜色的种类风化结果表现为风化，且数据样本较多，其他类型的纹饰与颜色均表现为未风化；
-	\item 由铅钡玻璃的二维图，可以观察到A纹饰的浅蓝色同时表现出了未风化、风化两种结果，推测当A纹饰的铅钡玻璃介于风化与未风化的过渡地带时，往往呈现出浅蓝色，而A纹饰的其他颜色都具有较好的区分属性，如A纹饰——深蓝色表现为未风化，而A纹饰——蓝绿色/黑色/缺失颜色均表现为风化；
-	\item 由铅钡玻璃的二维图，可以观察到C纹饰的深绿色、紫色、浅绿色同时表现出了未风化、风化两种结果，推测当C纹饰的铅钡玻璃介于风化与未风化的过渡地带时，往往呈现出这三种颜色，而C纹饰的其他颜色，如C纹饰——绿色表现为未风化，C纹饰——蓝绿色/缺失颜色均表现为风化。
+	\item 由铅钡玻璃的二维图，可以观察到A纹饰的浅蓝色同时表现出了未风化、风化两种结果，推测当A纹饰的铅钡玻璃介于风化与未风化的过渡地带时，往往呈现出浅蓝色，而A纹饰的其他颜色都具有较好的区分属性，如A纹饰——深蓝色表现为未风化，而A纹饰——蓝绿色/黑色/缺失颜色均表现为风化；C纹饰同理，存在过渡地带。
 \end{itemize}
 
 
 基于上述的规律，本文做出了三个维度数据与风化结果的关系特征的推导：
 \begin{itemize}
-	\item 玻璃类型会对风化结果产生较显著的影响，铅钡玻璃风化比重比高钾玻璃大
+	\item 玻璃类型会对风化结果产生较显著的影响，铅钡玻璃风化比重比高钾玻璃大；
 	\item 风化过程中会存在\textbf{颜色的渐变}，这种渐变过程会因玻璃类型和纹饰存在差异，如铅钡玻璃的C纹饰，初始为绿色，经过风化由于化学成分改变逐渐变成浅绿、深绿的过度颜色，最终被完全风化，变成蓝绿色。
 \end{itemize}
 
@@ -393,8 +399,13 @@
 
 \subsubsection{化学成分含量的反向传播}
 
-本文通过按照一定比例依次调整风化后样本的化学成分含量，直到逻辑回归的方程判定由“1”变为“0”为止，达到预测风化前化学成分含量的效果。由于是对多组化学变量同时调整，故需要设定不同的调整幅度，此幅度由不同化学成分含量风化前后的均值的变化量之比决定。幅度比如下所示： $$\bigtriangleup \mu_{CuO}:\bigtriangleup \mu_{Fe_{2}O_{3}}:\bigtriangleup \mu_{Al_{2}O_{3}}:\bigtriangleup \mu_{MgO}:\bigtriangleup \mu_{CaO}:\bigtriangleup \mu_{K_{2}O}:\bigtriangleup \mu_{SiO_{2}} \ \\
-=1:2.166:5.587:1.213:5.209:11.814:-37.913$$ 
+本文通过按照一定比例依次调整风化后样本的化学成分含量，直到逻辑回归的方程判定由“1”变为“0”为止，达到预测风化前化学成分含量的效果。由于是对多组化学变量同时调整，故需要设定不同的调整幅度，此幅度由不同化学成分含量风化前后的均值的变化量之比决定。幅度比如下所示： 
+\[
+\begin{array}{l}
+	\triangle \mu_{\mathrm{CuO}}: \Delta \mu_{\mathrm{Fe}_{2} \mathrm{O}_{3}}: \triangle \mu_{\mathrm{Al}_{2} \mathrm{O}_{3}}: \triangle \mu_{\mathrm{MgO}}: \triangle \mu_{\mathrm{CaO}}: \triangle \mu_{K_{2} \mathrm{O}}: \triangle \mu_{\mathrm{SiO}_{2}} \\
+	=1: 2.166: 5.587: 1.213: 5.209: 11.814:-37.913
+\end{array}
+\]
 
 本算法的伪代码如下所示：
 
@@ -508,8 +519,52 @@
 
 \subsubsection{分类规律总述}
 
-综合玻璃类别与化学成分散点图和$spearman$相关系数的分析可得：高钾玻璃的氧化钾含量明显高于铅钡玻璃； 高钾玻璃的氧化铅和氧化钡含量之和明显低于铅钡玻璃的氧化铅和氧化钡含量之和； 高钾玻璃的二氧化硅含量整体高于铅钡玻璃，但是二者的二氧化硅含量有明显的交集。 基于以上观测，本文推测通过$\frac{P b O+B a O}{K_{2} O}$这一比值可初步确定玻璃文物是高钾玻璃 还是铅钡玻璃。
+综合玻璃类别与化学成分散点图和$spearman$相关系数的分析可得：高钾玻璃的氧化钾含量明显高于铅钡玻璃； 高钾玻璃的氧化铅和氧化钡含量之和明显低于铅钡玻璃的氧化铅和氧化钡含量之和； 高钾玻璃的二氧化硅含量整体高于铅钡玻璃，但是二者的二氧化硅含量有明显的交集。 基于以上观测，我们推测通过$\frac{PbO+BaO}{K_{2}O}$这一比值可初步确定玻璃文物是高钾玻璃还是铅钡玻璃。
 
+\subsection{基于 Kmeans 。。。。。。的模型建立与求解}
+
+为选择化学成分指标对不同的类型进行亚类划分，本文采用了K-means无监督学习的方式实现聚类，进而得到亚分类依据的效果
+
+\subsubsection{剔除噪声影响}
+
+在两组不同的玻璃类型的数据中，都存在冗余数据的噪声，噪声的特点是，数据相对杂乱，无法对分类工作做出指引，且一定程度上存在干扰结果的可能。 基于这种考虑，我们通过。。。。。以剔除噪声。
+
+
+\subsubsection{确定最佳聚类数}
+
+K-means聚类分析存在超参数最佳聚类数K，本文使用了肘部法则和平均轮廓法实现K值的选取。
+
+\begin{itemize}
+	\item 肘部法则 引入指标误差平方和SSE，随着K值升高，SSE值减小，当SSE与K值的关系到达拐点时，具有最好的分类效果，此时即可以挑选出不同特征的类别，又避免了过度分类。 $$SSE=\sum_{\mathrm{i}=1}^{\mathrm{k}} \sum_{p \in C_{i}}\left|p-m_{i}\right|^{2}$$
+	\item 轮廓系数法 轮廓系数法的核心思想是通过调整K,以达到分类结果可以蔟内紧密，蔟外远离的效果，为了刻画这一效果，引入了指标$s(i)$,其计算公式如下所示： 
+	\[
+	s(i)=\frac{b(i)-a(i)}{\max \{a(i), b(i)\}}=\left\{\begin{array}{c}
+		1-\frac{a(i)}{b(i)}, \quad a(i)<b(i) \\
+		0, \quad a(i)=b(i) \\
+		\frac{b(i)}{a(i)}-1, \quad a(i)>b(i)
+	\end{array}\right.
+	\]
+	其中，a(i)表示该样本点i到蔟内其他数据的平均距离，b(i)表示到临近蔟数据的平均距离；如果$s(i)$接近1，说明聚类效果好；s(i)接近-1，说明聚类存在失真;s(i)接近0，说明聚类效果效果差。
+\end{itemize}
+
+分别使用两种方法得到的效果曲线如图\ref{qdkz}所示：
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=.49\textwidth]{gaojiazhou}
+	\includegraphics[width=.49\textwidth]{qianbeizhou}
+	\includegraphics[width=.49\textwidth]{gaojialun}
+	\includegraphics[width=.49\textwidth]{qianbeilun}
+	\caption{肘部法和轮廓系数法获取K值}
+	\label{qdkz}
+\end{figure}
+
+由图可得，应该选取的K值为 。
+
+
+\subsubsection{k-means聚类过程}
+
+\subsubsection{聚类模型的敏感度与准确度分析}
 
 \section{问题三模型的建立与求解}
 
@@ -532,14 +587,19 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]_{+}$$ 其中$[z]_{+}=\left\{\begin{
 
 \begin{table}[!h]
 	\centering
-	\tiny
+	\footnotesize
 	\caption{输入特征表}
 	\label{6-1}
-	\begin{tabular}{@{}cccccccccccccccccc@{}}
+	\begin{tabular}{@{}cccccccccc@{}}
 		\toprule
-		\textbf{\begin{tabular}[c]{@{}c@{}}化学成分\\ 类型\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}表面\\ 是否风化\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}二氧化硅\\ (SiO2)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钠\\ (Na2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钾\\ (K2O)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钙\\ (CaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化镁\\ (MgO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铝\\ (Al2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铁\\ (Fe2O3)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铜\\ (CuO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化铅\\ (PbO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化钡\\ (BaO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}五氧化二磷\\ (P2O5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化锶\\ (SrO)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}氧化锡\\ (SnO2)\end{tabular}} & \textbf{二氧化硫(SO2)} & \textbf{$\frac{n_K}{n_{Pb}+n_{Ba}}$} & \textbf{$\frac{n_{K}}{n_{Si}}$} \\ \midrule
-		\textbf{支持向量机}                                             &                                                            &                                                                &                                                               &                                                              & $\surd$                                                      &                                                              & $\surd$                                                        & $\surd$                                                        & $\surd$                                                      &                                                              &                                                              & $\surd$                                                         &                                                              &                                                               &                    & $\surd$                              & $\surd$                         \\
-		\textbf{决策树}                                               & $\surd$                                                    & $\surd$                                                        & $\surd$                                                       & $\surd$                                                      &                                                              &                                                              &                                                                &                                                                &                                                              & $\surd$                                                      & $\surd$                                                      &                                                                 &                                                              & $\surd$                                                       & $\surd$            &                                      &                                 \\ \bottomrule
+		\textbf{化学成分}  & \textbf{表面}  & \textbf{二氧化硅} & \textbf{氧化钠}   & \textbf{氧化钾} & \textbf{氧化钙} & \textbf{氧化镁}       & \textbf{氧化铝}                         & \textbf{氧化铁}                    & \textbf{氧化铜} \\ \midrule
+		\textbf{类型}    & 是否风化         & (SiO2)        & (Na2O)         & (K2O)        & (CaO)        & (MgO)              & (Al2O3)                              & (Fe2O3)                         & (CuO)        \\
+		\textbf{支持向量机} &              &               &                &              & $\surd$      &                    & $\surd$                              & $\surd$                         & $\surd$      \\
+		\textbf{决策树}   & $\surd$      & $\surd$       & $\surd$        & $\surd$      &              &                    &                                      &                                 &              \\ \midrule
+		\textbf{化学成分}  & \textbf{氧化铅} & \textbf{氧化钡}  & \textbf{五氧化二磷} & \textbf{氧化锶} & \textbf{氧化锡} & \textbf{二氧化硫(SO2)} & \textbf{$\frac{n_K}{n_{Pb}+n_{Ba}}$} & \textbf{$\frac{n_{K}}{n_{Si}}$} & \textbf{}    \\ \midrule
+		\textbf{类型}    & (PbO)        & (BaO)         & (P2O5)         & (SrO)        & (SnO2)       &                    &                                      &                                 &              \\
+		\textbf{支持向量机} &              &               & $\surd$        &              &              &                    & $\surd$                              & $\surd$                         &              \\
+		\textbf{决策树}   & $\surd$      & $\surd$       &                &              & $\surd$      & $\surd$            &                                      &                                 &              \\ \bottomrule
 	\end{tabular}
 \end{table}
 
@@ -552,9 +612,9 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]_{+}$$ 其中$[z]_{+}=\left\{\begin{
 	\includegraphics[width=.49\textwidth]{dzql}
 	\includegraphics[width=.49\textwidth]{gszql}
 	\caption{不同核函数下的测试集的准确度}
+	\footnotesize{*线性核函数默认参数下准确率为94\%，作对照用}
 	\label{zqd}
 \end{figure}
-*线性核函数默认参数下准确率为94\%，作对照用
 
 
 通过图\ref{zqd}可知，最优的核函数是多项式核函数，且degree选择3。
@@ -658,15 +718,36 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]_{+}$$ 其中$[z]_{+}=\left\{\begin{
 
 本文从化学原理入手，分析不同玻璃类型将化学成分关系的差异性。
 
+\begin{itemize}
+
+\item 
+
+水解氢化反应的差异 
+\endnote{吴宗道;周福征;史美光.几个古玻璃的显微形貌、成分及其风化的初步研究[J].电子显微学报,1986,(04):65-71.} 
+水解氢化反应对风化过程起着非常重要的作用。 在高钾玻璃中，存在下面的反应： $$-\underset{|} {\mathrm{\overset{|}{Si}}}-\mathrm{O}-\mathrm{K}+\mathrm{H} \cdot \mathrm{OH}^{-} \rightarrow-\underset{|}{\overset{|}{Si}}-\mathrm{OH}+\mathrm{KOH}$$ 而在铅钡玻璃， 在$Si-O$键破坏后，可能有 $Pb-O$ 或 $Pb^{++}$ 或 $Ba^{++}$ 出现; 
+\endnote{Chengyu, W., Ying, T., Min, C., \& Ming, H. (1991). Weathering of Soda-Lime and Lead Glasses. Transactions of the Indian Ceramic Society, 50(6), 171–177.}
+推论：在水解氢化反应中，铅钡玻璃$Si-O$键被破坏，导致$SiO_{2}$含量减少，而$PbO$、$BaO$含量则可能增加。
+
+\item 
+与玻璃内在结晶水、外界空气反应的差异 
+\endnote{陈敏. 影响铅玻璃风化的因素[D]. 大连工业大学,1987. } 
+在高钾玻璃中，存在下面的化学转换关系： $CaO+CO_{2} \rightarrow CaCO_{3}$ $Na_{2}SiO_{3} + CO_{2} \rightarrow Na_{2}CO_{3}+SiO_{2}$ $K_{2}SiO_{3}+XH_{2}O \rightarrow 2KOH + (X-1)H_{2}O \cdot SiO_{2}$
+\endnote{刘壮飞.玻璃制品的风化及其预防措施[J].商业科技,1987,(05):30-31.}
+等 而在铅钡玻璃中，由于$PbO/K_{2}O$比例较高，形成网络，网络中的桥氧($O_{6}$)结合能较高，形式稳定，使表面的氧化物不易发生反应。 推论：在与内在结晶水、外界$CO_{2}$反应的过程中，铅钡玻璃由于网络的生成其活跃性较差，反应较少，这也是铅钡玻璃中化学成分含量spearman相关系数较低的原因； 而高钾玻璃频繁地发生金属氧化物生成碳酸金属化合物与二氧化硅的生成反应，导致其中$SiO_{2}$含量增多，$CaO$、$Al_{2}O_{3}$等含量减少，大量化学关系的转换也是高钾玻璃中化学成分含量spearman相关系数较大的原因。
+
+\end{itemize}
+
 
 
 
 \newpage
-%参考文献
-\begin{thebibliography}{9}%宽度9
-	\bibitem[1]{test} 参考文献
-\end{thebibliography}
 
+%参考文献
+%\begin{thebibliography}{9}%宽度9
+%	\bibitem \theendnotes 
+%\end{thebibliography}
+\renewcommand{\notesname}{参考文献} 
+\theendnotes
 
 
 

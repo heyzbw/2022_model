@@ -33,6 +33,11 @@
 	\caption{符号说明表}
 	\label{fuhao}
 ~~~
+- 简便的参考文献（改尾注）
+~~~
+\endnote{}
+\renewcommand{\notesname}{参考文献}\small \theendnotes 
+~~~
 - 字体大小
 ~~~
 Command     Nominal Point Size      Exact Point Size
