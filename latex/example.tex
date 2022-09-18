@@ -327,7 +327,7 @@
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=.69\textwidth]{liucheng}
+	\includegraphics[width=.65\textwidth]{liucheng}
 	\caption{模型算法流程图}
 	\label{liucheng}
 \end{figure}
@@ -512,11 +512,6 @@
 
 综合玻璃类别与化学成分散点图和$spearman$相关系数的分析可得：高钾玻璃的氧化钾含量明显高于铅钡玻璃； 高钾玻璃的氧化铅和氧化钡含量之和明显低于铅钡玻璃的氧化铅和氧化钡含量之和； 高钾玻璃的二氧化硅含量整体高于铅钡玻璃，但是二者的二氧化硅含量有明显的交集。 基于以上观测，我们推测通过$\frac{P b O+B a O}{K_{2} O}$这一比值可初步确定玻璃文物是高钾玻璃 还是铅钡玻璃。
 
-\newpage
-%参考文献
-\begin{thebibliography}{9}%宽度9
-	\bibitem[1]{test} 参考文献
-\end{thebibliography}
 
 \section{问题三模型的建立与求解}
 
@@ -551,7 +546,7 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]{+}$$ 其中$[z]{+}=\left\{\begin{ar
 	\centering
 	\includegraphics[width=.49\textwidth]{dzql}
 	\includegraphics[width=.49\textwidth]{gszql}
-	\caption{不同核函数下的测试集的准确度 // *线性核函数默认参数下准确率为94\%，作为对照}
+	\caption{不同核函数下的测试集的准确度 // *线性核函数默认参数下准确率为94\%，作对照用}
 	\label{zqd}
 \end{figure}
 
@@ -574,17 +569,49 @@ $$L(y \cdot(w \cdot x+b))=[1-y(w \cdot x+b)]{+}$$ 其中$[z]{+}=\left\{\begin{ar
 
 \subsubsection{化学成分特征选取}
 
-数据的输入特征在决策树中充当节点的角色，因此选取合适的输入特征，更能构建一颗优良的决策树。由上文分析可知，高钾玻璃和铅钡玻璃的 二氧化硅、氧化钾、氧化钡和氧化铅含量差异明显，甚至具有肉眼可见的分界面，因此这些属性是良好的决策属性。除此之外：玻璃文物表面 风化与否也是很好的分类特征。观察表三所给的数据：二氧化硫、氧化锡和氧化纳这些化学成分由于空白过多，导致其在预测阶段丧失了连续属性， 可以看作标签信号加入进决策树的模型训练中，最终决策树的输入化学成分如表\ref{6-2}所示。
+数据的输入特征在决策树中充当节点的角色，因此选取合适的输入特征，更能构建一颗优良的决策树。由上文分析可知，高钾玻璃和铅钡玻璃的 二氧化硅、氧化钾、氧化钡和氧化铅含量差异明显，甚至具有肉眼可见的分界面，因此这些属性是良好的决策属性。除此之外：玻璃文物表面 风化与否也是很好的分类特征。观察附件表三所给的数据：二氧化硫、氧化锡和氧化纳这些化学成分由于空白过多，导致其在预测阶段丧失了连续属性， 可以看作标签信号加入进决策树的模型训练中，最终决策树的输入化学成分如表\ref{6-1}所示。
 
+\subsubsection{模型超参数的选择及模型训练}
+
+\subsection{结果预测}
+
+将附件表单三的未知类别的风化信息以及化学成分信息输入多项式核的支持向量机以及决策树得到的对应结果如表\ref{6-2}所示。
 \begin{table}[!h]
 	\centering
 	\caption{决策树输入特征表}
 	\label{6-2}
 \end{table}
 
-\subsubsection{模型超参数的选择及模型训练}
 
-\subsection{结果预测}
+\section{问题4的分析}
+\subsection{化学成分关联关系的描述性分析}
+
+对于高钾玻璃，化学成分有如下的关联关系
+\begin{itemize}
+	\item 在风化进程中$SiO_{2}$含量明显的增多，而$K_{2}O$、$CaO$、$MgO$、$Al_{2}O_{3}$、$Fe_{2}O_{3}$、$CuO$等的含量明显的减小。
+	\item 上述几种化学成分的spearman相关系数较高
+\end{itemize}
+
+
+对于铅钡玻璃，化学成分有如下的关联关系
+\begin{itemize}
+	\item 在风化进程中$SiO_{2}$含量明显的减少，而$PbO$、$Cao$、$BaO$等化学成分含量明显增多，较多的化学成分含量风化前后无明显增多
+	\item 铅钡玻璃的化学成分的spearman相关系数较低
+\end{itemize}
+
+\subsection{不同玻璃类型间化学成分关系的差异性分析}
+
+本文从化学原理入手，分析不同玻璃类型将化学成分关系的差异性。
+
+
+
+\newpage
+%参考文献
+\begin{thebibliography}{9}%宽度9
+	\bibitem[1]{test} 参考文献
+\end{thebibliography}
+
+
 
 
 \newpage
